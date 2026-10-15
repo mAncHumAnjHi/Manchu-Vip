@@ -111,10 +111,11 @@ def get_btc_data() -> dict[str, float]:
         timeout=REQUEST_TIMEOUT_SECONDS,
     )
 
-    if btc_history.empty:
-        raise RuntimeError("Yahoo Finance returned no Bitcoin price data.")
     if inr_history.empty:
-        raise RuntimeError("Yahoo Finance returned no USD/INR data.")
+    print("Warning: Yahoo Finance se USD/INR data nahi mila. Using fallback rate.")
+    current_usd_inr = 83.5  # Fallback rate
+else:
+    current_usd_inr = as_float(inr_history["Close"].iloc[-1])
 
     btc_history = btc_history.dropna(subset=["Close"])
     inr_history = inr_history.dropna(subset=["Close"])
