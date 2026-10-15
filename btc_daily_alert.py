@@ -94,7 +94,7 @@ def get_optional_btc_stats(ticker: yf.Ticker) -> tuple[float, float]:
 def get_btc_data() -> dict[str, float]:
     """Fetch the current BTC price, INR conversion, and 24-hour movement."""
     btc_ticker = yf.Ticker("BTC-USD")
-    inr_ticker = yf.Ticker("INR=X")
+    inr_ticker = yf.Ticker("USDINR=X")
 
     # Hourly history gives a real 24-hour comparison for a continuously
     # traded asset, unlike comparing against the previous daily candle.
