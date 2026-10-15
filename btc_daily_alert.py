@@ -1,5 +1,4 @@
-"Send a Bitcoin price alert to Telegram.
-
+"""Send a Bitcoin price alert to Telegram."""
 Setup:
     1. Copy .env.example to .env.
     2. Add your Telegram bot token and chat ID to .env.
