@@ -118,11 +118,18 @@ else:
     current_usd_inr = as_float(inr_history["Close"].iloc[-1])
 
     btc_history = btc_history.dropna(subset=["Close"])
-    inr_history = inr_history.dropna(subset=["Close"])
+    if inr_history.empty:
+        print("Warning: Yahoo Finance se USD/INR data nahi mila. Using fallback rate.")
+        current_usd_inr = 83.5
+    else:
+        current_usd_inr = as_float(inr_history["Close"].iloc[-1])
+
+    btc_history = btc_history.dropna(subset=["Close"])
 
     current_btc_usd = as_float(btc_history["Close"].iloc[-1])
-    current_usd_inr = as_float(inr_history["Close"].iloc[-1])
+
     if current_btc_usd <= 0 or current_usd_inr <= 0:
+        raise RuntimeError("Yahoo Finance returned an invalid price.")
         raise RuntimeError("Yahoo Finance returned an invalid price.")
 
     latest_timestamp = btc_history.index[-1]
